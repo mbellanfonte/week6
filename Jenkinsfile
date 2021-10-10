@@ -33,7 +33,7 @@ spec:
         }
         stage('Main') {
             when {
-                beforeAgent true
+                // beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/main"
                 }
@@ -44,7 +44,7 @@ spec:
         }
         stage('Feature') {
             when {
-                beforeAgent true
+                // beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/feature"
                 }
@@ -55,7 +55,7 @@ spec:
         }
         stage('Playground') {
             when {
-                beforeAgent true
+                // beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/playground"
                 }
