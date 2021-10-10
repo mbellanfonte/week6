@@ -2,14 +2,6 @@
 pipeline {
     agent {
         kubernetes {
-            // Rather than inline YAML, in a multibranch Pipeline you could use: yamlFile 'jenkins-pod.yaml'
-            // Or, to avoid YAML:
-            // containerTemplate {
-            //     name 'shell'
-            //     image 'ubuntu'
-            //     command 'sleep'
-            //     args 'infinity'
-            // }
             yaml '''
 apiVersion: v1
 kind: Pod
@@ -42,7 +34,7 @@ spec:
                 }
             }
         }
- */        stage('Main - JaCoCo Test Coverage') {
+ */     stage('Main - JaCoCo Test Coverage') {
             when {
                 //beforeAgent true
                 expression {
@@ -50,8 +42,8 @@ spec:
                 }
             }
             steps {
-                sh '''
-                echo "I am the main branch"
+                echo "MAIN BRANCH JaCoCo Test..."
+/*                 sh '''
                 pwd
                 cd /home/gradle
                 chmod +x gradlew
@@ -64,7 +56,7 @@ spec:
                     reportFiles: 'index.html',
                     reportName: 'JaCoCo Coverage Report'
                 ])
-            }
+ */            }
         }
         stage('Main - Checkstyle Test') {
             when {
@@ -74,7 +66,8 @@ spec:
                 }
             }
             steps {
-                script {
+                echo "MAIN BRANCH Checkstyle test"
+/*                 script {
                     try {
                         sh '''
                         pwd
@@ -90,7 +83,7 @@ spec:
                         reportName: 'Main Checkstyle Report'
                     ])
                 }
-            }
+ */            }
         }
 
         stage('Feature') {
@@ -101,8 +94,8 @@ spec:
                 }
             }
             steps {
-                script {
-                    echo "I am a feature branch"
+                echo "FEATURE BRANCH Checkstyle Test"
+/*                 script {
                     try {
                         sh '''
                         pwd
@@ -118,7 +111,7 @@ spec:
                         reportName: 'Feature Checkstyle Report'
                     ])
                 }
-            }
+ */            }
         }
         stage('Playground') {
             when {
@@ -128,7 +121,7 @@ spec:
                 }
             }
             steps {
-                echo "I am a playground branch"
+                echo "PLAYGROUND BRANCH -- No testing to be performed."
             }
         }
     }
