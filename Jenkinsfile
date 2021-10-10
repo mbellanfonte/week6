@@ -52,6 +52,8 @@ spec:
             steps {
                 sh '''
                 echo "I am the main branch"
+                pwd
+                chmod +x gradlew
                 ./gradlew jacocoTestCoverageVerification
                 ./gradlew jacocoTestReport
                 '''
