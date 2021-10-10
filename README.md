@@ -1,5 +1,2 @@
 # week6
-I am testing out the multibranch pipeline in the main branch!
-I think I'm getting it now.
-deleted a few lines
-Things are starting to look up!
+Testing the feature branch. The feature branch will automatically delete after the pull request has been accepted and the branch is merged with main.
