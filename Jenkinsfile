@@ -35,12 +35,10 @@ spec:
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
-                    stage('build a gradle container') {
-                        sh '''
-                        chmod +x gradlew
-                        ./gradlew test
-                        '''
-                    }
+                    sh '''
+                    chmod +x gradlew
+                    ./gradlew test
+                    '''
                 }
             }
         }
