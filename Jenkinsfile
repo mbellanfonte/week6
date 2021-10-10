@@ -31,7 +31,7 @@ spec:
                 echo env. GIT_LOCAL_BRANCH
             }
         }
-        stage('Run pipeline against gradle') {
+/*         stage('Run pipeline against gradle') {
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
@@ -42,9 +42,9 @@ spec:
                 }
             }
         }
-        stage('Main - JaCoCo Test Coverage') {
+ */        stage('Main - JaCoCo Test Coverage') {
             when {
-                beforeAgent true
+                //beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/main"
                 }
@@ -64,7 +64,7 @@ spec:
         }
         stage('Main - Checkstyle Test') {
             when {
-                beforeAgent true
+                //beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/main"
                 }
@@ -91,7 +91,7 @@ spec:
 
         stage('Feature') {
             when {
-                beforeAgent true
+                //beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/feature"
                 }
@@ -118,7 +118,7 @@ spec:
         }
         stage('Playground') {
             when {
-                beforeAgent true
+                //beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/playground"
                 }
