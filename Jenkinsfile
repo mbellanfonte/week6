@@ -53,7 +53,9 @@ spec:
                 sh '''
                 echo "I am the main branch"
                 pwd
+                cd /home/gradle
                 chmod +x gradlew
+                .gradlew test
                 ./gradlew jacocoTestCoverageVerification
                 ./gradlew jacocoTestReport
                 '''
