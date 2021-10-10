@@ -70,20 +70,22 @@ spec:
                 }
             }
             steps {
-                try {
-                    sh '''
-                    pwd
-                    cd week6
-                    ./gradlew checkstyleMain'''
-                } catch (Exception e) {
+                script {
+                    try {
+                        sh '''
+                        pwd
+                        cd week6
+                        ./gradlew checkstyleMain'''
+                    } catch (Exception e) {
                         echo 'checkstyle fails'
                     }
-                publishHTML (target: [
-                    alwaysLinkToLastBuild: true,
-                    reportDir: 'week6/build/reports/checkstyle/',
-                    reportFiles: 'main.html',
-                    reportName: 'Main Checkstyle Report'
-                ])
+                    publishHTML (target: [
+                        alwaysLinkToLastBuild: true,
+                        reportDir: 'week6/build/reports/checkstyle/',
+                        reportFiles: 'main.html',
+                        reportName: 'Main Checkstyle Report'
+                    ])
+                }
             }
         }
 
@@ -95,21 +97,23 @@ spec:
                 }
             }
             steps {
-                echo "I am a feature branch"
-                try {
-                    sh '''
-                    pwd
-                    cd week6
-                    ./gradlew checkstyleMain'''
-                } catch (Exception e) {
+                script {
+                    echo "I am a feature branch"
+                    try {
+                        sh '''
+                        pwd
+                        cd week6
+                        ./gradlew checkstyleMain'''
+                    } catch (Exception e) {
                         echo 'checkstyle fails'
                     }
-                publishHTML (target: [
-                    alwaysLinkToLastBuild: true,
-                    reportDir: 'week6/build/reports/checkstyle/',
-                    reportFiles: 'main.html',
-                    reportName: 'Feature Checkstyle Report'
-                ])
+                    publishHTML (target: [
+                        alwaysLinkToLastBuild: true,
+                        reportDir: 'week6/build/reports/checkstyle/',
+                        reportFiles: 'main.html',
+                        reportName: 'Feature Checkstyle Report'
+                    ])
+                }
             }
         }
         stage('Playground') {
