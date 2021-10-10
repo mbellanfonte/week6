@@ -1,5 +1,2 @@
 # week6
-I am testing out the multibranch pipeline in the main branch!
-I think I'm getting it now.
-deleted a few lines
-Things are starting to look up!
+I am making changes to the README.md file to the playground branch.
