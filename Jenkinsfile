@@ -17,112 +17,17 @@ spec:
         }
     }
     stages {
-        stage('Debug') {
-            steps {
-                echo env.GIT_BRANCH
-                echo env. GIT_LOCAL_BRANCH
-            }
-        }
-/*         stage('Run pipeline against gradle') {
-            steps {
-                git 'https://github.com/mbellanfonte/week6.git'
-                container('gradle') {
-                    sh '''
+		stage{'Run pipeline against gradle') {
+			steps {
+				container('gradle') {
+					git 'https://github.com/mbellanfonte/week6.git'
+					sh '''
+					pwd
                     chmod +x gradlew
                     ./gradlew test
                     '''
-                }
-            }
-        }
- */     stage('Main - JaCoCo Test Coverage') {
-            when {
-                //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "origin/main"
-                }
-            }
-            steps {
-                echo "MAIN BRANCH JaCoCo Test..."
-/*                 sh '''
-                pwd
-                cd /home/gradle
-                chmod +x gradlew
-                .gradlew test
-                ./gradlew jacocoTestCoverageVerification
-                ./gradlew jacocoTestReport
-                '''
-                publishHTML (target: [
-                    reportDir: 'week6/build/reports/jacoco/test/html',
-                    reportFiles: 'index.html',
-                    reportName: 'JaCoCo Coverage Report'
-                ])
- */            }
-        }
-        stage('Main - Checkstyle Test') {
-            when {
-                //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "origin/main"
-                }
-            }
-            steps {
-                echo "MAIN BRANCH Checkstyle test"
-/*                 script {
-                    try {
-                        sh '''
-                        pwd
-                        cd week6
-                        ./gradlew checkstyleMain'''
-                    } catch (Exception e) {
-                        echo 'checkstyle fails'
-                    }
-                    publishHTML (target: [
-                        alwaysLinkToLastBuild: true,
-                        reportDir: 'week6/build/reports/checkstyle/',
-                        reportFiles: 'main.html',
-                        reportName: 'Main Checkstyle Report'
-                    ])
-                }
- */            }
-        }
-
-        stage('Feature') {
-            when {
-                //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "origin/feature"
-                }
-            }
-            steps {
-                echo "FEATURE BRANCH Checkstyle Test"
-/*                 script {
-                    try {
-                        sh '''
-                        pwd
-                        cd week6
-                        ./gradlew checkstyleMain'''
-                    } catch (Exception e) {
-                        echo 'checkstyle fails'
-                    }
-                    publishHTML (target: [
-                        alwaysLinkToLastBuild: true,
-                        reportDir: 'week6/build/reports/checkstyle/',
-                        reportFiles: 'main.html',
-                        reportName: 'Feature Checkstyle Report'
-                    ])
-                }
- */            }
-        }
-        stage('Playground') {
-            when {
-                //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "origin/playground"
-                }
-            }
-            steps {
-                echo "PLAYGROUND BRANCH -- No testing to be performed."
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 }
