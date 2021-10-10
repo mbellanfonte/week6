@@ -31,31 +31,92 @@ spec:
                 echo env. GIT_LOCAL_BRANCH
             }
         }
-        stage('Main') {
+        stage('Run pipeline against gradle') {
+            steps {
+                git 'https://github.com/mbellanfonte/week6.git'
+                container('gradle') {
+                    stage('build a gradle container') {
+                        sh '''
+                        chmod +x gradlew
+                        ./gradlew test
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Main - JaCoCo Test Coverage') {
             when {
-                // beforeAgent true
+                //beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/main"
                 }
             }
             steps {
-                sh 'hostname'
+                sh '''
+                echo "I am the main branch"
+                ./gradlew jacocoTestCoverageVerification
+                ./gradlew jacocoTestReport
+                '''
+                publishHTML (target: [
+                    reportDir: 'week6/build/reports/jacoco/test/html',
+                    reportFiles: 'index.html',
+                    reportName: 'JaCoCo Coverage Report'
+                ])
             }
         }
+        stage('Main - Checkstyle Test') {
+            when {
+                //beforeAgent true
+                expression {
+                    return env.GIT_BRANCH == "origin/main"
+                }
+            }
+            steps {
+                try {
+                    sh '''
+                    pwd
+                    cd week6
+                    ./gradlew checkstyleMain'''
+                } catch (Exception e) {
+                        echo 'checkstyle fails'
+                    }
+                publishHTML (target: [
+                    alwaysLinkToLastBuild: true,
+                    reportDir: 'week6/build/reports/checkstyle/',
+                    reportFiles: 'main.html',
+                    reportName: 'Main Checkstyle Report'
+                ])
+            }
+        }
+
         stage('Feature') {
             when {
-                // beforeAgent true
+                //beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/feature"
                 }
             }
             steps {
                 echo "I am a feature branch"
+                try {
+                    sh '''
+                    pwd
+                    cd week6
+                    ./gradlew checkstyleMain'''
+                } catch (Exception e) {
+                        echo 'checkstyle fails'
+                    }
+                publishHTML (target: [
+                    alwaysLinkToLastBuild: true,
+                    reportDir: 'week6/build/reports/checkstyle/',
+                    reportFiles: 'main.html',
+                    reportName: 'Feature Checkstyle Report'
+                ])
             }
         }
         stage('Playground') {
             when {
-                // beforeAgent true
+                //beforeAgent true
                 expression {
                     return env.GIT_BRANCH == "origin/playground"
                 }
