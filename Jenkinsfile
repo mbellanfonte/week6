@@ -15,12 +15,12 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: shell
-    image: ubuntu
+  - name: gradle
+    image: gradle:6.3-jdk14
     command:
     - sleep
     args:
-    - infinity
+    - 30d
 '''
         }
     }
