@@ -17,7 +17,7 @@ spec:
         }
     }
     stages {
-		stage{'Run pipeline against gradle') {
+		stage('Run pipeline against gradle') {
 			steps {
 				container('gradle') {
 					git 'https://github.com/mbellanfonte/week6.git'
