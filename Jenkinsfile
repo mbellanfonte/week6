@@ -17,17 +17,21 @@ spec:
         }
     }
     stages {
-		stage('Run pipeline against gradle') {
-			steps {
-				container('gradle') {
-					git 'https://github.com/mbellanfonte/week6.git'
-					sh '''
-					pwd
+        stage('Run pipeline against gradle') {
+            steps {
+                git 'https://github.com/mbellanfonte/week6.git'
+                container('gradle') {
+                    sh '''
+		    pwd
                     chmod +x gradlew
                     ./gradlew test
                     '''
-				}
-			}
-		}
-	}
+                    stage('Debug') {
+                        steps {
+                        echo env.GIT_BRANCH
+                        echo env. GIT_LOCAL_BRANCH
+                        }
+                }
+                }
+        }
 }
