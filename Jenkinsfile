@@ -32,6 +32,7 @@ spec:
                         echo env. GIT_LOCAL_BRANCH
                         }
                 }
-                }
+            }
         }
-}
+	}
+    }
