@@ -55,10 +55,8 @@ spec:
                         echo env.GIT_BRANCH
                         echo env. GIT_LOCAL_BRANCH
                         }
+                    }
                 }
-                }
-        }
-}
             }
         }
         stage('Debug') {
@@ -67,7 +65,7 @@ spec:
                 echo env. GIT_LOCAL_BRANCH
             }
         }
-     stage('Main - JaCoCo Test Coverage') {
+        stage('Main - JaCoCo Test Coverage') {
             when {
                 //beforeAgent true
                 expression {
@@ -116,7 +114,7 @@ spec:
                         reportName: 'Main Checkstyle Report'
                     ])
                 }
- */            }
+ */          }
         }
 
         stage('Feature') {
