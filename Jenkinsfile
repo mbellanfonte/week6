@@ -50,12 +50,6 @@ spec:
                     chmod +x gradlew
                     ./gradlew test
                     '''
-                    stage('Debug') {
-                        steps {
-                        echo env.GIT_BRANCH
-                        echo env. GIT_LOCAL_BRANCH
-                        }
-                    }
                 }
             }
         }
