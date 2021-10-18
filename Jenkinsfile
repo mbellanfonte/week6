@@ -69,10 +69,11 @@ spec:
                 }
             }
             steps {
-                echo "MAIN BRANCH JaCoCo Test..."
-/*                 sh '''
+                echo "MAIN BRANCH JaCoCo Test..."                 
+                sh '''
                 pwd
                 cd /home/gradle
+                gradle wrapper
                 chmod +x gradlew
                 .gradlew test
                 ./gradlew jacocoTestCoverageVerification
@@ -83,7 +84,7 @@ spec:
                     reportFiles: 'index.html',
                     reportName: 'JaCoCo Coverage Report'
                 ])
- */            }
+             }
         }
         stage('Main - Checkstyle Test') {
             when {
