@@ -50,7 +50,7 @@ spec:
         }
         stage('Run pipeline against gradle') {
             steps {
-                git 'https://github.com/mbellanfonte/week6.git'
+//                git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     sh '''
                     chmod +x gradlew
