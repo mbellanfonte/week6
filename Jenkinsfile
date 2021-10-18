@@ -50,41 +50,25 @@ spec:
         }
         stage('Run pipeline against gradle') {
             steps {
-//                git 'https://github.com/mbellanfonte/week6.git'
+                git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     sh '''
                     bash
+                    pwd
+                    cd /home/gradle
                     gradle wrapper
                     chmod +x gradlew
                     ./gradlew test
+                    ./gradlew jacocoTestCoverageVerification
+                    ./gradlew jacocoTestReport
                     '''
+                    publishHTML (target: [
+                        reportDir: 'week6/build/reports/jacoco/test/html',
+                        reportFiles: 'index.html',
+                        reportName: 'JaCoCo Coverage Report'
+                    ])
                 }
             }
-        }
-        stage('Main - JaCoCo Test Coverage') {
-            when {
-                //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "main"
-                }
-            }
-            steps {
-                echo "MAIN BRANCH JaCoCo Test..."                 
-                sh '''
-                pwd
-                cd /home/gradle
-                gradle wrapper
-                chmod +x gradlew
-                .gradlew test
-                ./gradlew jacocoTestCoverageVerification
-                ./gradlew jacocoTestReport
-                '''
-                publishHTML (target: [
-                    reportDir: 'week6/build/reports/jacoco/test/html',
-                    reportFiles: 'index.html',
-                    reportName: 'JaCoCo Coverage Report'
-                ])
-             }
         }
         stage('Main - Checkstyle Test') {
             when {
