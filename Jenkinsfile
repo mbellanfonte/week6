@@ -42,6 +42,12 @@ spec:
         }
     }
     stages {
+       stage('Debug') {
+            steps {
+                echo env.GIT_BRANCH
+                echo env. GIT_LOCAL_BRANCH
+            }
+        }
         stage('Run pipeline against gradle') {
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
@@ -51,12 +57,6 @@ spec:
                     ./gradlew test
                     '''
                 }
-            }
-        }
-        stage('Debug') {
-            steps {
-                echo env.GIT_BRANCH
-                echo env. GIT_LOCAL_BRANCH
             }
         }
         stage('Main - JaCoCo Test Coverage') {
