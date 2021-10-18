@@ -54,6 +54,7 @@ spec:
                 container('gradle') {
                     //sh '''
                     sh 'bash'
+                    sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew test'
                     //'''
