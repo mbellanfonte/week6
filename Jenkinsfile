@@ -53,6 +53,7 @@ spec:
 //                git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     sh '''
+                    bash
                     chmod +x gradlew
                     ./gradlew test
                     '''
