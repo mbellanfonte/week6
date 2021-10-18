@@ -45,10 +45,16 @@ spec:
        stage('Debug') {
             steps {
                 echo env.GIT_BRANCH
-                echo env. GIT_LOCAL_BRANCH
+                echo env.GIT_LOCAL_BRANCH
             }
         }
         stage('Run pipeline against gradle') {
+            when {
+                //beforeAgent true
+                expression {
+                    return env.GIT_BRANCH == "main"
+                }
+            }
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
@@ -58,7 +64,6 @@ spec:
                     cd /home/gradle
                     gradle wrapper
                     chmod +x gradlew
-                    ./gradlew test
                     ./gradlew jacocoTestCoverageVerification
                     ./gradlew jacocoTestReport
                     '''
