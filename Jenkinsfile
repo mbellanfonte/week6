@@ -45,7 +45,7 @@ spec:
        stage('Debug') {
             steps {
                 echo env.GIT_BRANCH
-                echo env. GIT_LOCAL_BRANCH
+                echo env.GIT_LOCAL_BRANCH
             }
         }
         stage('Run pipeline against gradle') {
@@ -64,7 +64,6 @@ spec:
                     cd /home/gradle
                     gradle wrapper
                     chmod +x gradlew
-                    ./gradlew test
                     ./gradlew jacocoTestCoverageVerification
                     ./gradlew jacocoTestReport
                     '''
