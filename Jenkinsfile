@@ -49,6 +49,12 @@ spec:
             }
         }
         stage('Run pipeline against gradle') {
+            when {
+                //beforeAgent true
+                expression {
+                    return env.GIT_BRANCH == "main"
+                }
+            }
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
