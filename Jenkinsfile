@@ -52,11 +52,11 @@ spec:
             steps {
 //                git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
-                    sh '''
-                    bash
-                    chmod +x gradlew
-                    ./gradlew test
-                    '''
+                    //sh '''
+                    sh 'bash'
+                    sh 'chmod +x gradlew'
+                    sh './gradlew test'
+                    //'''
                 }
             }
         }
