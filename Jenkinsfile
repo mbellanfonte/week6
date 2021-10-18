@@ -65,7 +65,7 @@ spec:
             when {
                 //beforeAgent true
                 expression {
-                    return env.GIT_BRANCH == "origin/main"
+                    return env.GIT_BRANCH == "main"
                 }
             }
             steps {
@@ -89,7 +89,7 @@ spec:
             when {
                 //beforeAgent true
                 expression {
-                    return env.GIT_BRANCH == "origin/main"
+                    return env.GIT_BRANCH == "main"
                 }
             }
             steps {
@@ -117,7 +117,7 @@ spec:
             when {
                 //beforeAgent true
                 expression {
-                    return env.GIT_BRANCH == "origin/feature"
+                    return env.GIT_BRANCH == "feature"
                 }
             }
             steps {
