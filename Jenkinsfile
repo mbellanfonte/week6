@@ -51,9 +51,7 @@ spec:
         stage('Run pipeline against gradle') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "main"
-                }
+                branch 'main'
             }
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
@@ -67,6 +65,11 @@ spec:
                     ./gradlew jacocoTestCoverageVerification
                     ./gradlew jacocoTestReport
                     '''
+                }
+            }
+            post {
+                always {
+                    // publish HTML
                     publishHTML (target: [
                         reportDir: 'week6/build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
@@ -78,21 +81,19 @@ spec:
         stage('Main - Checkstyle Test') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "main"
-                }
+                branch 'main'
             }
             steps {
                 echo "MAIN BRANCH Checkstyle test"
-/*                 script {
-                    try {
-                        sh '''
-                        pwd
-                        cd week6
-                        ./gradlew checkstyleMain'''
-                    } catch (Exception e) {
-                        echo 'checkstyle fails'
-                    }
+                sh '''
+                pwd
+                cd week6
+                ./gradlew checkstyleMain
+                '''
+            }
+            post {
+                always {
+                    // publish html
                     publishHTML (target: [
                         alwaysLinkToLastBuild: true,
                         reportDir: 'week6/build/reports/checkstyle/',
@@ -100,15 +101,13 @@ spec:
                         reportName: 'Main Checkstyle Report'
                     ])
                 }
- */          }
+           }
         }
 
         stage('Feature') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "feature"
-                }
+                branch 'feature'
             }
             steps {
                 echo "FEATURE BRANCH Checkstyle Test"
@@ -133,9 +132,7 @@ spec:
         stage('Playground') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "origin/playground"
-                }
+                branch 'playground'
             }
             steps {
                 echo "PLAYGROUND BRANCH -- No testing to be performed."
