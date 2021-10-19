@@ -58,6 +58,7 @@ spec:
                 container('gradle') {
                     sh '''
                     bash
+                    hostname
                     pwd
                     cd /home/gradle
                     gradle wrapper
@@ -70,6 +71,7 @@ spec:
             post {
                 always {
                     // publish HTML
+                    sh 'hostname'
                     publishHTML (target: [
                         reportDir: 'week6/build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
