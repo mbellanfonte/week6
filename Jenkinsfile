@@ -66,6 +66,8 @@ spec:
                     //sh 'cd week6'
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
+                    sh './gradlew test'
+                    sh 'cat build.gradle'
                     sh './gradlew jacocoTestCoverageVerification'
                     sh './gradlew jacocoTestReport'
                 }
@@ -73,9 +75,8 @@ spec:
             post {
                 success {
                     // publish HTML
-                    //sh 'hostname'
                     publishHTML (target: [
-                        reportDir: './build/reports/jacoco/test/html',
+                        reportDir: 'build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
                         reportName: 'JaCoCo Coverage Report'
                     ])
