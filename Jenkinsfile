@@ -49,7 +49,12 @@ spec:
             }
         }
         stage('Run pipeline against gradle') {
-            when { branch 'main' }
+            when { 
+                anyOf {
+                    branch 'main'
+                    branch 'feature'
+                }
+            }
             /*when {
                 expression {
                     GIT_BRANCH == 'origin/main'
@@ -65,6 +70,33 @@ spec:
                     sh 'chmod +x gradlew'
                     sh './gradlew test'
                     sh 'cat build.gradle'
+                    sh './gradlew checkstyleMain'
+                }
+            }
+            post {
+                success {
+                    // publish html
+                    publishHTML (target: [
+                        alwaysLinkToLastBuild: true,
+                        reportDir: 'build/reports/checkstyle/',
+                        reportFiles: 'main.html',
+                        reportName: 'Checkstyle Report'
+                    ])
+                }
+            }
+        }
+        stage('Code Coverage Test') {
+            when {
+                    branch 'main'
+            }
+            steps {
+                container('gradle') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    //sh 'gradle wrapper'
+                    //sh 'chmod +x gradlew'
+                    //sh './gradlew test'
+                    //sh 'cat build.gradle'
                     sh './gradlew jacocoTestCoverageVerification'
                     sh './gradlew jacocoTestReport'
                 }
@@ -76,29 +108,6 @@ spec:
                         reportDir: 'build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
                         reportName: 'JaCoCo Coverage Report'
-                    ])
-                }
-            }
-        }
-        stage('Checkstyle Test') {
-            when { branch 'main' }
-            steps {
-                container('gradle') {
-                    echo "MAIN BRANCH Checkstyle test"
-                    sh '''
-                    pwd
-                    ./gradlew checkstyleMain
-                    '''
-                }
-            }
-            post {
-                success {
-                    // publish html
-                    publishHTML (target: [
-                        alwaysLinkToLastBuild: true,
-                        reportDir: 'build/reports/checkstyle/',
-                        reportFiles: 'main.html',
-                        reportName: 'Main Checkstyle Report'
                     ])
                 }
            }
