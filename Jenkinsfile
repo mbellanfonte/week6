@@ -70,7 +70,7 @@ spec:
                 }
             }
             post {
-                success {
+                always {
                     // publish HTML
                     publishHTML (target: [
                         reportDir: 'week6/build/reports/jacoco/test/html',
@@ -96,7 +96,7 @@ spec:
                 '''
             }
             post {
-                success {
+                always {
                     // publish html
                     publishHTML (target: [
                         alwaysLinkToLastBuild: true,
