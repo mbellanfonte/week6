@@ -64,10 +64,10 @@ spec:
                     sh 'pwd'
                     sh 'ls -la'
                     //sh 'cd week6'
-                    //sh 'gradle wrapper'
-                    //sh 'chmod +x gradlew'
-                    //sh './gradlew jacocoTestCoverageVerification'
-                    //sh './gradlew jacocoTestReport'
+                    sh 'gradle wrapper'
+                    sh 'chmod +x gradlew'
+                    sh './gradlew jacocoTestCoverageVerification'
+                    sh './gradlew jacocoTestReport'
                 }
             }
             post {
@@ -75,7 +75,7 @@ spec:
                     // publish HTML
                     //sh 'hostname'
                     publishHTML (target: [
-                        reportDir: 'week6/build/reports/jacoco/test/html',
+                        reportDir: './build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
                         reportName: 'JaCoCo Coverage Report'
                     ])
