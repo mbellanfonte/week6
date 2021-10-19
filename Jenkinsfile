@@ -139,7 +139,6 @@ spec:
 
 /*      stage('Build a gradle project') {
             steps {
-                git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     sh '''
                     chmod +x gradlew
