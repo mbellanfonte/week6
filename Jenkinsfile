@@ -50,7 +50,7 @@ spec:
         }
         stage('Run pipeline against gradle') {
             when {
-                //beforeAgent true
+                beforeAgent true
                 branch 'main'
             }
             steps {
