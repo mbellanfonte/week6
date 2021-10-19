@@ -64,11 +64,11 @@ spec:
                     sh 'pwd'
                     sh 'ls -la'
                     //sh 'cd week6'
-                    sh 'gradle wrapper'
+                    //sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
-                    sh './gradlew test'
-                    //sh './gradlew jacocoTestCoverageVerification'
-                    //sh './gradlew jacocoTestReport'
+                    //sh './gradlew test'
+                    sh './gradlew jacocoTestCoverageVerification'
+                    sh './gradlew jacocoTestReport'
                 }
             }
             post {
