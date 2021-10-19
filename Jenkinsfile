@@ -58,12 +58,12 @@ spec:
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
+                git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     //sh 'bash'
-                    git 'https://github.com/mbellanfonte/week6.git'
                     sh 'pwd'
-                    sh 'cd /mbellanfonte/week6'
-                    sh './gradle wrapper'
+                    //sh 'cd /mbellanfonte/week6'
+                    sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew jacocoTestCoverageVerification'
                     sh './gradlew jacocoTestReport'
