@@ -58,11 +58,12 @@ spec:
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
-                git 'https://github.com/mbellanfonte/week6.git'
+                //git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     //sh 'bash'
                     sh 'pwd'
-                    //sh 'cd /mbellanfonte/week6'
+                    sh 'ls -la'
+                    //sh 'cd week6'
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew jacocoTestCoverageVerification'
@@ -74,7 +75,7 @@ spec:
                     // publish HTML
                     //sh 'hostname'
                     publishHTML (target: [
-                        reportDir: 'week6/build/reports/jacoco/test/html',
+                        reportDir: './build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
                         reportName: 'JaCoCo Coverage Report'
                     ])
