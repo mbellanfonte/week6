@@ -55,11 +55,6 @@ spec:
                     branch 'feature'
                 }
             }
-            /*when {
-                expression {
-                    GIT_BRANCH == 'origin/main'
-                }
-            }*/
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
@@ -79,11 +74,6 @@ spec:
                     branch 'feature'
                 }
             }
-            /*when {
-                expression {
-                    GIT_BRANCH == 'origin/main'
-                }
-            }*/
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
