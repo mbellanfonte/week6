@@ -67,6 +67,11 @@ spec:
                     ./gradlew jacocoTestCoverageVerification
                     ./gradlew jacocoTestReport
                     '''
+                }
+            }
+            post {
+                success {
+                    // publish HTML
                     publishHTML (target: [
                         reportDir: 'week6/build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
@@ -84,15 +89,15 @@ spec:
             }
             steps {
                 echo "MAIN BRANCH Checkstyle test"
-/*                 script {
-                    try {
-                        sh '''
-                        pwd
-                        cd week6
-                        ./gradlew checkstyleMain'''
-                    } catch (Exception e) {
-                        echo 'checkstyle fails'
-                    }
+                sh '''
+                pwd
+                cd week6
+                ./gradlew checkstyleMain
+                '''
+            }
+            post {
+                success {
+                    // publish html
                     publishHTML (target: [
                         alwaysLinkToLastBuild: true,
                         reportDir: 'week6/build/reports/checkstyle/',
@@ -100,7 +105,7 @@ spec:
                         reportName: 'Main Checkstyle Report'
                     ])
                 }
- */          }
+           }
         }
 
         stage('Feature') {
