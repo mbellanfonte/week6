@@ -67,6 +67,7 @@ spec:
                     //sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     //sh './gradlew test'
+                    sh 'cat build.gradle'
                     sh './gradlew jacocoTestCoverageVerification'
                     sh './gradlew jacocoTestReport'
                 }
