@@ -49,8 +49,10 @@ spec:
             }
         }
         stage('Run pipeline against gradle') {
-            when { branch 'main' }
+            //when { branch 'main' }
             steps {
+                echo env.GIT_BRANCH
+                echo env.GIT_LOCAL_BRANCH
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     //sh 'bash'
