@@ -69,7 +69,31 @@ spec:
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew test'
-                    sh 'cat build.gradle'
+                }
+            }
+        }
+        stage('CheckStyle Test') {
+            when { 
+                anyOf {
+                    branch 'main'
+                    branch 'feature'
+                }
+            }
+            /*when {
+                expression {
+                    GIT_BRANCH == 'origin/main'
+                }
+            }*/
+            steps {
+                echo env.GIT_BRANCH
+                echo env.GIT_LOCAL_BRANCH
+                container('gradle') {
+                    //sh 'pwd'
+                    //sh 'ls -la'
+                    //sh 'gradle wrapper'
+                    //sh 'chmod +x gradlew'
+                    //sh './gradlew test'
+                    //sh 'cat build.gradle'
                     sh './gradlew checkstyleMain'
                 }
             }
@@ -113,41 +137,7 @@ spec:
            }
         }
 
-/*        stage('Feature') {
-            when {
-                //beforeAgent true
-                branch 'feature'
-            }
-            steps {
-                echo "FEATURE BRANCH Checkstyle Test"
-                 script {
-                    try {
-                        sh '''
-                        pwd
-                        cd week6
-                        ./gradlew checkstyleMain'''
-                    } catch (Exception e) {
-                        echo 'checkstyle fails'
-                    }
-                    publishHTML (target: [
-                        alwaysLinkToLastBuild: true,
-                        reportDir: 'week6/build/reports/checkstyle/',
-                        reportFiles: 'main.html',
-                        reportName: 'Feature Checkstyle Report'
-                    ])
-                }
-             }
-        }
-        stage('Playground') {
-            when {
-                //beforeAgent true
-                branch 'playground'
-            }
-            steps {
-                echo "PLAYGROUND BRANCH -- No testing to be performed."
-            }
-        }
-        stage('Build a gradle project') {
+/*      stage('Build a gradle project') {
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
