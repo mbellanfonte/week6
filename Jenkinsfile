@@ -1,4 +1,4 @@
-// Uses Declarative syntax to run commands inside a container - remove /r.
+// Uses Declarative syntax to run commands inside a container - playground.
 pipeline {
     agent {
         kubernetes {
