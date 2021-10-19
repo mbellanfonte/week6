@@ -50,6 +50,11 @@ spec:
         }
         stage('Run pipeline against gradle') {
             //when { branch 'main' }
+            /*when {
+                expression {
+                    GIT_BRANCH == 'origin/main'
+                }
+            }*/
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
@@ -76,7 +81,7 @@ spec:
                 }
             }
         }
-        stage('Main - Checkstyle Test') {
+/*        stage('Main - Checkstyle Test') {
             when { branch 'main' }
             steps {
                 echo "MAIN BRANCH Checkstyle test"
@@ -106,7 +111,7 @@ spec:
             }
             steps {
                 echo "FEATURE BRANCH Checkstyle Test"
-/*                 script {
+                 script {
                     try {
                         sh '''
                         pwd
@@ -122,7 +127,7 @@ spec:
                         reportName: 'Feature Checkstyle Report'
                     ])
                 }
- */            }
+             }
         }
         stage('Playground') {
             when {
@@ -158,5 +163,5 @@ spec:
                 }
             }
         }
-    }
+*/    }
 }
