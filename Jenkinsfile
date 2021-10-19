@@ -88,12 +88,6 @@ spec:
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
                 container('gradle') {
-                    //sh 'pwd'
-                    //sh 'ls -la'
-                    //sh 'gradle wrapper'
-                    //sh 'chmod +x gradlew'
-                    //sh './gradlew test'
-                    //sh 'cat build.gradle'
                     sh './gradlew checkstyleMain'
                 }
             }
@@ -117,10 +111,6 @@ spec:
                 container('gradle') {
                     sh 'pwd'
                     sh 'ls -la'
-                    //sh 'gradle wrapper'
-                    //sh 'chmod +x gradlew'
-                    //sh './gradlew test'
-                    //sh 'cat build.gradle'
                     sh './gradlew jacocoTestCoverageVerification'
                     sh './gradlew jacocoTestReport'
                 }
