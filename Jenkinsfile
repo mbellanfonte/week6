@@ -62,11 +62,12 @@ spec:
                 container('gradle') {
                     //sh 'bash'
                     sh 'pwd'
-                    sh 'cd week6'
-                    sh 'gradle wrapper'
-                    sh 'chmod +x gradlew'
-                    sh './gradlew jacocoTestCoverageVerification'
-                    sh './gradlew jacocoTestReport'
+                    sh 'ls -la'
+                    //sh 'cd week6'
+                    //sh 'gradle wrapper'
+                    //sh 'chmod +x gradlew'
+                    //sh './gradlew jacocoTestCoverageVerification'
+                    //sh './gradlew jacocoTestReport'
                 }
             }
             post {
