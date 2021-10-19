@@ -49,7 +49,12 @@ spec:
             }
         }
         stage('Run pipeline against gradle') {
-            when { branch 'main' }
+            when { 
+                anyOf {
+                    branch 'main'
+                    branch 'feature'
+                }
+            }
             /*when {
                 expression {
                     GIT_BRANCH == 'origin/main'
@@ -58,16 +63,40 @@ spec:
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
-                //git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
-                    //sh 'bash'
                     sh 'pwd'
                     sh 'ls -la'
-                    //sh 'cd week6'
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew test'
                     sh 'cat build.gradle'
+                    sh './gradlew checkstyleMain'
+                }
+            }
+            post {
+                success {
+                    // publish html
+                    publishHTML (target: [
+                        alwaysLinkToLastBuild: true,
+                        reportDir: 'build/reports/checkstyle/',
+                        reportFiles: 'main.html',
+                        reportName: 'Checkstyle Report'
+                    ])
+                }
+            }
+        }
+        stage('Code Coverage Test') {
+            when {
+                    branch 'main'
+            }
+            steps {
+                container('gradle') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    //sh 'gradle wrapper'
+                    //sh 'chmod +x gradlew'
+                    //sh './gradlew test'
+                    //sh 'cat build.gradle'
                     sh './gradlew jacocoTestCoverageVerification'
                     sh './gradlew jacocoTestReport'
                 }
@@ -81,32 +110,10 @@ spec:
                         reportName: 'JaCoCo Coverage Report'
                     ])
                 }
-            }
-        }
-/*        stage('Main - Checkstyle Test') {
-            when { branch 'main' }
-            steps {
-                echo "MAIN BRANCH Checkstyle test"
-                sh '''
-                pwd
-                cd week6
-                ./gradlew checkstyleMain
-                '''
-            }
-            post {
-                always {
-                    // publish html
-                    publishHTML (target: [
-                        alwaysLinkToLastBuild: true,
-                        reportDir: 'week6/build/reports/checkstyle/',
-                        reportFiles: 'main.html',
-                        reportName: 'Main Checkstyle Report'
-                    ])
-                }
            }
         }
 
-        stage('Feature') {
+/*        stage('Feature') {
             when {
                 //beforeAgent true
                 branch 'feature'
