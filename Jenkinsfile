@@ -142,8 +142,8 @@ spec:
             }
         }
         stage('Build Java Image') {
-            container('kaniko') {
-                steps {
+            steps {
+                container('kaniko') {
                     sh '''
                     echo 'FROM openjdk:8-jre' > Dockerfile
                     echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
