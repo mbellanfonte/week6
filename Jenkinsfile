@@ -58,7 +58,7 @@ spec:
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
-                git 'https://github.com/mbellanfonte/week6.git'
+                //git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     //sh 'bash'
                     sh 'pwd'
