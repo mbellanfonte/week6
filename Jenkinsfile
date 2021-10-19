@@ -51,9 +51,7 @@ spec:
         stage('Run pipeline against gradle') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "main"
-                }
+                branch 'main'
             }
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
@@ -83,9 +81,7 @@ spec:
         stage('Main - Checkstyle Test') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "main"
-                }
+                branch 'main'
             }
             steps {
                 echo "MAIN BRANCH Checkstyle test"
@@ -111,9 +107,7 @@ spec:
         stage('Feature') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "feature"
-                }
+                branch 'feature'
             }
             steps {
                 echo "FEATURE BRANCH Checkstyle Test"
@@ -138,9 +132,7 @@ spec:
         stage('Playground') {
             when {
                 //beforeAgent true
-                expression {
-                    return env.GIT_BRANCH == "origin/playground"
-                }
+                branch 'playground'
             }
             steps {
                 echo "PLAYGROUND BRANCH -- No testing to be performed."
