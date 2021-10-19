@@ -58,12 +58,9 @@ spec:
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
-                //git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
-                    //sh 'bash'
                     sh 'pwd'
                     sh 'ls -la'
-                    //sh 'cd week6'
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew test'
@@ -83,22 +80,23 @@ spec:
                 }
             }
         }
-/*        stage('Main - Checkstyle Test') {
+        stage('Checkstyle Test') {
             when { branch 'main' }
             steps {
-                echo "MAIN BRANCH Checkstyle test"
-                sh '''
-                pwd
-                cd week6
-                ./gradlew checkstyleMain
-                '''
+                container('gradle') {
+                    echo "MAIN BRANCH Checkstyle test"
+                    sh '''
+                    pwd
+                    ./gradlew checkstyleMain
+                    '''
+                }
             }
             post {
-                always {
+                success {
                     // publish html
                     publishHTML (target: [
                         alwaysLinkToLastBuild: true,
-                        reportDir: 'week6/build/reports/checkstyle/',
+                        reportDir: 'build/reports/checkstyle/',
                         reportFiles: 'main.html',
                         reportName: 'Main Checkstyle Report'
                     ])
@@ -106,7 +104,7 @@ spec:
            }
         }
 
-        stage('Feature') {
+/*        stage('Feature') {
             when {
                 //beforeAgent true
                 branch 'feature'
