@@ -80,7 +80,7 @@ spec:
         }
         stage('Main - Checkstyle Test') {
             when {
-                //beforeAgent true
+                beforeAgent true
                 branch 'main'
             }
             steps {
@@ -106,7 +106,7 @@ spec:
 
         stage('Feature') {
             when {
-                //beforeAgent true
+                beforeAgent true
                 branch 'feature'
             }
             steps {
