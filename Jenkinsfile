@@ -56,20 +56,20 @@ spec:
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
-                    sh '''
-                    bash
-                    pwd
-                    cd /home/gradle
-                    gradle wrapper
-                    chmod +x gradlew
-                    ./gradlew jacocoTestCoverageVerification
-                    ./gradlew jacocoTestReport
-                    '''
+                    sh 'bash'
+                    sh 'hostname'
+                    sh 'pwd'
+                    sh 'cd /home/gradle'
+                    sh './gradle wrapper'
+                    sh 'chmod +x gradlew'
+                    sh './gradlew jacocoTestCoverageVerification'
+                    sh './gradlew jacocoTestReport'
                 }
             }
             post {
                 always {
                     // publish HTML
+                    sh 'hostname'
                     publishHTML (target: [
                         reportDir: 'week6/build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
