@@ -49,15 +49,11 @@ spec:
             }
         }
         stage('Run pipeline against gradle') {
-            when {
-                //beforeAgent true
-                branch 'main'
-            }
+            when { branch 'main' }
             steps {
                 git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
-                    sh 'bash'
-                    sh 'hostname'
+                    //sh 'bash'
                     sh 'pwd'
                     sh 'cd /home/gradle'
                     sh './gradle wrapper'
@@ -67,9 +63,9 @@ spec:
                 }
             }
             post {
-                always {
+                success {
                     // publish HTML
-                    sh 'hostname'
+                    //sh 'hostname'
                     publishHTML (target: [
                         reportDir: 'week6/build/reports/jacoco/test/html',
                         reportFiles: 'index.html',
@@ -79,10 +75,7 @@ spec:
             }
         }
         stage('Main - Checkstyle Test') {
-            when {
-                //beforeAgent true
-                branch 'main'
-            }
+            when { branch 'main' }
             steps {
                 echo "MAIN BRANCH Checkstyle test"
                 sh '''
