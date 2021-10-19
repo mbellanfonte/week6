@@ -66,8 +66,9 @@ spec:
                     //sh 'cd week6'
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
-                    sh './gradlew jacocoTestCoverageVerification'
-                    sh './gradlew jacocoTestReport'
+                    sh './gradlew test'
+                    //sh './gradlew jacocoTestCoverageVerification'
+                    //sh './gradlew jacocoTestReport'
                 }
             }
             post {
