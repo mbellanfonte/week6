@@ -141,6 +141,18 @@ spec:
                 echo "PLAYGROUND BRANCH -- No testing to be performed."
             }
         }
+        stage('Build a gradle project') {
+            steps {
+                git 'https://github.com/mbellanfonte/week6.git'
+                container('gradle') {
+                    sh '''
+                    chmod +x gradlew
+                    ./gradlew build
+                    mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /mnt
+                    '''
+                }
+            }
+        }
         stage('Build Java Image') {
             steps {
                 container('kaniko') {
