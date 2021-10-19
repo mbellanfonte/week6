@@ -49,20 +49,20 @@ spec:
             }
         }
         stage('Run pipeline against gradle') {
-            //when { branch 'main' }
-            when {
+            when { branch 'main' }
+            /*when {
                 expression {
                     GIT_BRANCH == 'origin/main'
                 }
-            }
+            }*/
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
-                git 'https://github.com/mbellanfonte/week6.git'
                 container('gradle') {
                     //sh 'bash'
+                    git 'https://github.com/mbellanfonte/week6.git'
                     sh 'pwd'
-                    sh 'cd /home/gradle'
+                    sh 'cd /mbellanfonte/week6'
                     sh './gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew jacocoTestCoverageVerification'
