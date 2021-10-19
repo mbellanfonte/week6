@@ -69,7 +69,31 @@ spec:
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew test'
-                    sh 'cat build.gradle'
+                }
+            }
+        }
+        stage('CheckStyle Test') {
+            when { 
+                anyOf {
+                    branch 'main'
+                    branch 'feature'
+                }
+            }
+            /*when {
+                expression {
+                    GIT_BRANCH == 'origin/main'
+                }
+            }*/
+            steps {
+                echo env.GIT_BRANCH
+                echo env.GIT_LOCAL_BRANCH
+                container('gradle') {
+                    //sh 'pwd'
+                    //sh 'ls -la'
+                    //sh 'gradle wrapper'
+                    //sh 'chmod +x gradlew'
+                    //sh './gradlew test'
+                    //sh 'cat build.gradle'
                     sh './gradlew checkstyleMain'
                 }
             }
