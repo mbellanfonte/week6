@@ -56,8 +56,6 @@ spec:
                 }
             }
             steps {
-                echo env.GIT_BRANCH
-                echo env.GIT_LOCAL_BRANCH
                 container('gradle') {
                     sh 'pwd'
                     sh 'ls -la'
@@ -75,8 +73,6 @@ spec:
                 }
             }
             steps {
-                echo env.GIT_BRANCH
-                echo env.GIT_LOCAL_BRANCH
                 container('gradle') {
                     sh './gradlew checkstyleMain'
                 }
