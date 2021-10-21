@@ -42,12 +42,6 @@ spec:
         }
     }
     stages {
-       stage('Debug') {
-            steps {
-                echo env.GIT_BRANCH
-                echo env.GIT_LOCAL_BRANCH
-            }
-        }
         stage('Run pipeline against gradle') {
             when { 
                 anyOf {
@@ -55,14 +49,7 @@ spec:
                     branch 'feature'
                 }
             }
-            /*when {
-                expression {
-                    GIT_BRANCH == 'origin/main'
-                }
-            }*/
             steps {
-                echo env.GIT_BRANCH
-                echo env.GIT_LOCAL_BRANCH
                 container('gradle') {
                     sh 'pwd'
                     sh 'ls -la'
@@ -79,14 +66,7 @@ spec:
                     branch 'feature'
                 }
             }
-            /*when {
-                expression {
-                    GIT_BRANCH == 'origin/main'
-                }
-            }*/
             steps {
-                echo env.GIT_BRANCH
-                echo env.GIT_LOCAL_BRANCH
                 container('gradle') {
                     sh './gradlew checkstyleMain'
                 }
@@ -126,19 +106,52 @@ spec:
                 }
            }
         }
-
-/*      stage('Build a gradle project') {
+        stage('Build a gradle project') {
+            when { 
+                anyOf {
+                    branch 'main'
+                    branch 'feature'
+                }
+            }
             steps {
                 container('gradle') {
                     sh '''
-                    chmod +x gradlew
                     ./gradlew build
                     mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /mnt
                     '''
                 }
             }
         }
-        stage('Build Java Image') {
+        stage('Build Java Image - Release') {
+        // The container's name is repository/image:version. Naming depends on the branch.
+        // release: image name is "calculator"
+        // release: version is 1.0
+ 
+            when {
+                    branch 'main'
+            }
+            steps {
+                container('kaniko') {
+                    sh '''
+                    pwd
+                    ls -la /mnt
+                    echo 'FROM openjdk:8-jre' > Dockerfile
+                    echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
+                    echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
+                    mv /mnt/calculator-0.0.1-SNAPSHOT.jar .
+                    /kaniko/executor --context $(pwd) --destination mbellanfonte/calculator:1.0
+                    '''
+                }
+            }
+        }
+        stage('Build Java Image - Feature') {
+        // The container's name is repository/image:version. Naming depends on the branch.
+        // release: image name is "calculator-feature"
+        // release: version is 0.1
+            
+            when {
+                    branch 'feature'
+            }
             steps {
                 container('kaniko') {
                     sh '''
@@ -146,10 +159,10 @@ spec:
                     echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
                     echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
                     mv /mnt/calculator-0.0.1-SNAPSHOT.jar .
-                    /kaniko/executor --context 'pwd' --destination mbellanfonte/hello-kaniko:1.0
+                    /kaniko/executor --context $(pwd) --destination mbellanfonte/calculator-feature:0.1
                     '''
                 }
             }
         }
-*/    }
+    }
 }
