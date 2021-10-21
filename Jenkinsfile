@@ -1,4 +1,3 @@
-// Uses Declarative syntax to run commands inside a container - remove /r.
 pipeline {
     agent {
         kubernetes {
