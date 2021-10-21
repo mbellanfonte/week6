@@ -50,8 +50,8 @@ spec:
             }
             steps {
                 container('gradle') {
-                    sh 'pwd'
-                    sh 'ls -la'
+                    //sh 'pwd'
+                    //sh 'ls -la'
                     sh 'gradle wrapper'
                     sh 'chmod +x gradlew'
                     sh './gradlew test'
@@ -88,8 +88,8 @@ spec:
             }
             steps {
                 container('gradle') {
-                    sh 'pwd'
-                    sh 'ls -la'
+                    //sh 'pwd'
+                    //sh 'ls -la'
                     sh './gradlew jacocoTestCoverageVerification'
                     sh './gradlew jacocoTestReport'
                 }
