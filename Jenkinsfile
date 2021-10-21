@@ -159,7 +159,7 @@ spec:
                     echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
                     echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
                     mv /mnt/calculator-0.0.1-SNAPSHOT.jar .
-                    /kaniko/executor --context 'pwd' --destination mbellanfonte/calculator-feature:0.1
+                    /kaniko/executor --context $(pwd) --destination mbellanfonte/calculator-feature:0.1
                     '''
                 }
             }
